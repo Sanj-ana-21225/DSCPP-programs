@@ -1,0 +1,50 @@
+#include <iostream>
+using namespace std;
+
+class Car
+{
+private:
+    int speed;
+    string brand;
+
+public:
+    void setData()
+    {
+        cout << "Enter car brand: ";
+        cin >> brand;
+        cout << "Enter speed: ";
+        cin >> speed;
+    }
+
+    void display()
+    {
+        cout << "Car Brand: " << brand << endl;
+        cout << "Speed: " << speed << " km/h" << endl;
+    }
+
+    void modifySpeed(int s)
+    {
+        speed = s;
+    }
+};
+
+int main()
+{
+    Car c1;
+
+    c1.setData();
+
+    cout << "\nCar Details:\n";
+    c1.display();
+
+    int newSpeed;
+    cout << "\nEnter new speed to modify: ";
+    cin >> newSpeed;
+
+    c1.modifySpeed(newSpeed);
+
+    cout << "\nAfter modifying speed:\n";
+    c1.display();
+
+    return 0;
+}
