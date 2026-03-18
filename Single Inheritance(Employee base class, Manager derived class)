@@ -1,0 +1,44 @@
+#include <iostream>
+using namespace std;
+
+class Employee
+{
+protected:
+    float salary;
+
+public:
+    void getSalary()
+    {
+        cout << "Enter basic salary: ";
+        cin >> salary;
+    }
+};
+
+class Manager : public Employee
+{
+    float allowance;
+
+public:
+    void getAllowance()
+    {
+        cout << "Enter allowance: ";
+        cin >> allowance;
+    }
+
+    void calculateSalary()
+    {
+        float total = salary + allowance;
+        cout << "Total Salary = " << total << endl;
+    }
+};
+
+int main()
+{
+    Manager m;
+
+    m.getSalary();
+    m.getAllowance();
+    m.calculateSalary();
+
+    return 0;
+}
