@@ -1,0 +1,91 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+};
+
+Node* head = NULL;
+
+void insert(int val) {
+    Node* newNode = new Node();
+    newNode->data = val;
+    newNode->next = NULL;
+
+    if (head == NULL) {
+        head = newNode;
+    } else {
+        Node* temp = head;
+        while (temp->next != NULL)
+            temp = temp->next;
+        temp->next = newNode;
+    }
+}
+
+void deleteValue(int key) {
+    if (head == NULL) {
+        cout << "List is empty\n";
+        return;
+    }
+
+    Node* temp = head;
+    Node* prev = NULL;
+
+    if (temp->data == key) {
+        head = temp->next;
+        delete temp;
+        cout << "Deleted element: " << key << endl;
+        return;
+    }
+
+    while (temp != NULL && temp->data != key) {
+        prev = temp;
+        temp = temp->next;
+    }
+
+    if (temp == NULL) {
+        cout << "Element not found\n";
+        return;
+    }
+
+    prev->next = temp->next;
+    delete temp;
+
+    cout << "Deleted element: " << key << endl;
+}
+
+void display() {
+    Node* temp = head;
+    while (temp != NULL) {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+    cout << endl;
+}
+
+int main() {
+    int n, x, key;
+
+    cout << "Enter number of elements: ";
+    cin >> n;
+
+    cout << "Enter elements:\n";
+    for (int i = 0; i < n; i++) {
+        cin >> x;
+        insert(x);
+    }
+
+    cout << "Initial List: ";
+    display();
+
+    cout << "Enter value to delete: ";
+    cin >> key;
+
+    deleteValue(key);
+
+    cout << "List after deletion: ";
+    display();
+
+    return 0;
+}
