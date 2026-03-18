@@ -1,0 +1,50 @@
+#include <iostream>
+using namespace std;
+
+class Student
+{
+private:
+    int sub1, sub2, sub3;
+
+public:
+    void getMarks()
+    {
+        cout << "Enter marks of 3 subjects: ";
+        cin >> sub1 >> sub2 >> sub3;
+    }
+
+    float average()
+    {
+        return (sub1 + sub2 + sub3) / 3.0;
+    }
+
+    float percentage()
+    {
+        return ((sub1 + sub2 + sub3) / 300.0) * 100;
+    }
+
+    void display()
+    {
+        cout << "Average = " << average() << endl;
+        cout << "Percentage = " << percentage() << "%" << endl;
+    }
+};
+
+int main()
+{
+    Student s1, s2, s3;
+
+    cout << "\nStudent 1\n";
+    s1.getMarks();
+    s1.display();
+
+    cout << "\nStudent 2\n";
+    s2.getMarks();
+    s2.display();
+
+    cout << "\nStudent 3\n";
+    s3.getMarks();
+    s3.display();
+
+    return 0;
+}
