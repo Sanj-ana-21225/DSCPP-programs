@@ -1,0 +1,75 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+};
+
+Node* head = NULL;
+
+void insert(int val) {
+    Node* newNode = new Node();
+    newNode->data = val;
+    newNode->next = head;
+    head = newNode;
+}
+
+int removeDuplicatesAndPrint() {
+    Node* p = head;
+    int sum = 0;
+
+    cout << "Duplicate elements: ";
+
+    while (p != NULL) {
+        Node* q = p;
+
+        while (q != NULL && q->next != NULL) {
+            if (q->next->data == p->data) {
+                Node* temp = q->next;
+
+                cout << temp->data << " ";   
+                sum += temp->data;          
+                q->next = q->next->next;
+                delete temp;
+            }
+            else {
+                q = q->next;
+            }
+        }
+
+        p = p->next;
+    }
+
+    cout << endl;
+    return sum;
+}
+
+void display() {
+    Node* temp = head;
+    while (temp != NULL) {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+    cout << endl;
+}
+
+int main() {
+    int n, x;
+
+    cin >> n;
+
+    for (int i = 0; i < n; i++) {
+        cin >> x;
+        insert(x);
+    }
+
+    int sum = removeDuplicatesAndPrint();
+
+    cout << "List after removing duplicates: ";
+    display();
+
+    cout << "Sum of duplicates: " << sum << endl;
+
+    return 0;
+}
