@@ -1,0 +1,70 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+};
+
+Node* head = NULL;
+
+void insert(int val) {
+    Node* newNode = new Node();
+    newNode->data = val;
+    newNode->next = NULL;
+
+    if (head == NULL)
+        head = newNode;
+    else {
+        Node* temp = head;
+        while (temp->next != NULL)
+            temp = temp->next;
+        temp->next = newNode;
+    }
+}
+
+void reverseHalf() {
+    if (head == NULL || head->next == NULL)
+        return;
+
+    Node *slow = head, *fast = head;
+
+    while (fast->next != NULL && fast->next->next != NULL) {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+
+    Node *prev = NULL, *curr = slow->next, *next;
+
+    while (curr != NULL) {
+        next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+    }
+
+    slow->next = prev;
+}
+
+void display() {
+    Node* temp = head;
+    while (temp != NULL) {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+    cout << endl;
+}
+
+int main() {
+    int n, x;
+    cin >> n;
+
+    for (int i = 0; i < n; i++) {
+        cin >> x;
+        insert(x);
+    }
+
+    reverseHalf();
+
+    display();
+}
