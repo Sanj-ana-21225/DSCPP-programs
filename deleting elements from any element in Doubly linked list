@@ -1,0 +1,93 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* prev;
+    Node* next;
+};
+
+void insertEnd(Node*& head, int x) {
+    Node* newNode = new Node{x, NULL, NULL};
+
+    if (head == NULL) {
+        head = newNode;
+        return;
+    }
+
+    Node* temp = head;
+    while (temp->next != NULL)
+        temp = temp->next;
+
+    temp->next = newNode;
+    newNode->prev = temp;
+}
+
+void deleteValue(Node*& head, int x) {
+    if (head == NULL) {
+        cout << "List is empty\n";
+        return;
+    }
+
+    Node* temp = head;
+
+    while (temp != NULL && temp->data != x)
+        temp = temp->next;
+
+    if (temp == NULL) {
+        cout << "Value not found\n";
+        return;
+    }
+
+    if (temp == head) {
+        head = head->next;
+        if (head != NULL)
+            head->prev = NULL;
+    }
+    else {
+        if (temp->next != NULL)
+            temp->next->prev = temp->prev;
+
+        if (temp->prev != NULL)
+            temp->prev->next = temp->next;
+    }
+
+    delete temp;
+}
+
+void display(Node* head) {
+    while (head != NULL) {
+        cout << head->data << " <-> ";
+        head = head->next;
+    }
+    cout << "NULL\n";
+}
+
+int main() {
+    int n;
+    cout << "Enter number of elements: ";
+    cin >> n;
+
+    int arr[n];
+
+    cout << "Enter elements:\n";
+    for (int i = 0; i < n; i++)
+        cin >> arr[i];
+
+    Node* head = NULL;
+
+    for (int i = 0; i < n; i++)
+        insertEnd(head, arr[i]);
+
+    cout << "Before deletion:\n";
+    display(head);
+
+    int x;
+    cout << "Enter value to delete: ";
+    cin >> x;
+
+    deleteValue(head, x);
+
+    cout << "After deletion:\n";
+    display(head);
+}
