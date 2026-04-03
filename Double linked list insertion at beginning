@@ -1,0 +1,47 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* prev;
+    Node* next;
+};
+
+void insertStart(Node*& head, int x) {
+    Node* newNode = new Node{x, NULL, NULL};
+
+    newNode->next = head;
+
+    if (head != NULL)
+        head->prev = newNode;
+
+    head = newNode;
+}
+
+void display(Node* head) {
+    while (head != NULL) {
+        cout << head->data << " <-> ";
+        head = head->next;
+    }
+    cout << "NULL\n";
+}
+
+int main() {
+    int n;
+    cout << "Enter number of elements: ";
+    cin >> n;
+
+    int arr[n];   // array
+
+    cout << "Enter elements:\n";
+    for (int i = 0; i < n; i++)
+        cin >> arr[i];
+
+    Node* head = NULL;
+
+    for (int i = 0; i < n; i++)
+        insertStart(head, arr[i]);
+
+    cout << "Doubly Linked List:\n";
+    display(head);
+}
