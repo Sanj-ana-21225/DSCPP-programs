@@ -1,0 +1,81 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* prev;
+    Node* next;
+};
+
+void deleteBeginning(Node*& head) {
+    if (head == NULL) {
+        cout << "List is empty";
+        return;
+    }
+
+    if (head->next == head) {
+        delete head;
+        head = NULL;
+    }
+    else {
+        Node* last = head->prev;   
+        Node* temp = head;      
+        head = head->next;      
+
+        head->prev = last;
+        last->next = head;
+
+        delete temp;            
+    }
+}
+
+void display(Node* head) {
+    if (head == NULL) return;
+
+    Node* temp = head;
+    do {
+        cout << temp->data << " ";
+        temp = temp->next;
+    } while (temp != head);
+}
+
+int main() {
+    Node* head = NULL;
+    int n;
+    cout << "Enter number of elements: ";
+    cin >> n;
+
+    int arr[n];
+    cout << "Enter elements: ";
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+
+    for (int i = 0; i < n; i++) {
+        Node* newNode = new Node{arr[i], NULL, NULL};
+
+        if (head == NULL) {
+            newNode->next = newNode;
+            newNode->prev = newNode;
+            head = newNode;
+        } else {
+            Node* last = head->prev;
+
+            last->next = newNode;
+            newNode->prev = last;
+
+            newNode->next = head;
+            head->prev = newNode;
+        }
+    }
+
+    cout << "Before Deletion: ";
+    display(head);
+
+    deleteBeginning(head);
+
+    cout << "\nAfter Deletion: ";
+    display(head);
+
+    return 0;
+}
