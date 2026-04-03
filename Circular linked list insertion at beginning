@@ -1,0 +1,62 @@
+ #include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+};
+
+void insertBeginning(Node*& head, int x) {
+    Node* newNode = new Node{x, NULL};
+
+    if (head == NULL) {
+        newNode->next = newNode;
+        head = newNode;
+    } else {
+        Node* temp = head;
+
+        while (temp->next != head)
+            temp = temp->next;
+
+        newNode->next = head;
+        temp->next = newNode;
+        head = newNode;
+    }
+}
+
+void createFromArray(Node*& head, int arr[], int n) {
+    for (int i = 0; i < n; i++) {
+        insertBeginning(head, arr[i]);
+    }
+}
+
+void display(Node* head) {
+    if (head == NULL) return;
+
+    Node* temp = head;
+    do {
+        cout << temp->data << " ";
+        temp = temp->next;
+    } while (temp != head);
+}
+
+int main() {
+    Node* head = NULL;
+
+    int n;
+    cout << "Enter number of elements: ";
+    cin >> n;
+
+    int arr[n];
+    cout << "Enter elements: ";
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+
+    createFromArray(head, arr, n);
+
+    cout << "Circular Linked List: ";
+    display(head);
+
+    return 0;
+} 
