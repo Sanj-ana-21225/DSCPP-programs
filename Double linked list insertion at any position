@@ -1,0 +1,91 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* prev;
+    Node* next;
+};
+
+void insertEnd(Node*& head, int x) {
+    Node* newNode = new Node{x, NULL, NULL};
+
+    if (head == NULL) {
+        head = newNode;
+        return;
+    }
+
+    Node* temp = head;
+    while (temp->next != NULL)
+        temp = temp->next;
+
+    temp->next = newNode;
+    newNode->prev = temp;
+}
+
+void insertAtPosition(Node*& head, int x, int pos) {
+    Node* newNode = new Node;
+    newNode->data = x;
+
+    if (pos == 1) {
+        newNode->next = head;
+        newNode->prev = NULL;
+
+        if (head != NULL)
+            head->prev = newNode;
+
+        head = newNode;
+        return;
+    }
+
+    Node* temp = head;
+    for (int i = 1; i < pos - 1 && temp != NULL; i++)
+        temp = temp->next;
+
+    if (temp == NULL) {
+        cout << "Invalid position\n";
+        return;
+    }
+
+    newNode->next = temp->next;
+    newNode->prev = temp;
+
+    if (temp->next != NULL)
+        temp->next->prev = newNode;
+
+    temp->next = newNode;
+}
+
+void display(Node* head) {
+    while (head != NULL) {
+        cout << head->data << " <-> ";
+        head = head->next;
+    }
+    cout << "NULL\n";
+}
+
+int main() {
+    int n;
+    cout << "Enter number of elements: ";
+    cin >> n;
+
+    int arr[n];
+
+    cout << "Enter elements:\n";
+    for (int i = 0; i < n; i++)
+        cin >> arr[i];
+
+    Node* head = NULL;
+                     
+    for (int i = 0; i < n; i++)
+        insertEnd(head, arr[i]);
+
+    int x, pos;
+    cout << "Enter value and position: ";
+    cin >> x >> pos;
+
+    insertAtPosition(head, x, pos);
+
+    cout << "Doubly Linked List:\n";
+    display(head);
+}
