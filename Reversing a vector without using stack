@@ -1,0 +1,46 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void reverseVector(vector<int> &vec) {
+    int i = 0;
+    int j = vec.size() - 1;
+
+    while(i < j) {
+        int temp = vec[i];
+        vec[i] = vec[j];
+        vec[j] = temp;
+
+        i++;
+        j--;
+    }
+}
+
+int main() {
+    vector<int> myVec;
+    int n, x;
+
+    cout << "Enter number of elements: ";
+    cin >> n;
+
+    cout << "Enter elements:\n";
+    for(int i = 0; i < n; i++) {
+        cin >> x;
+        myVec.push_back(x);
+    }
+
+    cout << "Original Vector: ";
+    for(int val : myVec) {
+        cout << val << " ";
+    }
+    cout << endl;
+
+    reverseVector(myVec);
+
+    cout << "Reversed Vector: ";
+    for(int val : myVec) {
+        cout << val << " ";
+    }
+
+    return 0;
+}
