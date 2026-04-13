@@ -1,0 +1,38 @@
+#include<iostream>
+#include<stack>
+#include<vector>
+using namespace std;
+
+void reversevector(vector<int>& vec){
+	stack<int> st;
+	int i;
+	
+	for(i=0;i<vec.size();i++){
+		st.push(vec[i]);
+	}
+	
+	for(i=0;i<vec.size();i++){
+		vec[i]=st.top();
+		st.pop();
+	}
+}
+
+int main(){
+	vector<int> myVec={1,5,4,7,3};
+	
+	cout<<"original vector:";
+	for(int val: myVec){
+		cout<<val<<" ";
+	}
+	cout<<endl;
+	
+	reversevector(myVec);
+	
+	cout<<"reversed vector: ";
+	for(int val:myVec){
+		cout<<val<<" ";
+	}
+	cout<<endl;
+	
+	return 0;
+}
